@@ -1,11 +1,11 @@
 package main
 
 import (
-	"example/hello/dp1d"
+	twopointers "example/hello/two-pointers"
 	"fmt"
 )
 
 func main() {
-	res := dp1d.Roberr2()
+	res := twopointers.LongestPalindrome()
 	fmt.Println(res)
 }
