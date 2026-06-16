@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	twopointers "github.com/improver2108/godsa/two-pointers"
+	"github.com/improver2108/godsa/dp1d"
 )
 
 func main() {
-	res := twopointers.LongestPalindrome()
+	res := dp1d.LongestPalindrome()
 	fmt.Println(res)
 }
