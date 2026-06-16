@@ -1,8 +1,9 @@
 package main
 
 import (
-	twopointers "example/hello/two-pointers"
 	"fmt"
+
+	twopointers "github.com/improver2108/godsa/two-pointers"
 )
 
 func main() {
