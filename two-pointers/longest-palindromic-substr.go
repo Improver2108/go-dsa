@@ -23,31 +23,27 @@ package twopointers
 // 1 <= s.length <= 1000
 // s contains only digits and English letters.
 
-func longestPalindrome(s string) string {
-	resIndex, resLen := 0, 0
-	n := len(s)
-	for i := range n {
-		l, r := i, i
-		for l >= 0 && r < n && s[l] == s[r] {
-			if r-l+1 > resLen {
-				resIndex = l
-				resLen = r - l + 1
+	func longestPalindrome(s string) string {
+		resIndex, resLen := 0, 0
+		n := len(s)
+	
+		inner := func(l, r int) {
+			for l >= 0 && r < n && s[l] == s[r] {
+				if r-l+1 > resLen {
+					resIndex = l
+					resLen = r - l + 1
+				}
+				l--
+				r++
 			}
-			l--
-			r++
 		}
-		l, r = i, i+1
-		for l >= 0 && r < n && s[l] == s[r] {
-			if r-l+1 > resLen {
-				resIndex = l
-				resLen = r - l + 1
-			}
-			l--
-			r++
+	
+		for i := range n {
+			inner(i, i)
+			inner(i, i+1)
 		}
+		return s[resIndex : resIndex+resLen]
 	}
-	return s[resIndex : resIndex+resLen]
-}
 
 func LongestPalindrome() string {
 	s := "ababd"
