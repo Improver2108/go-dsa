@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	res := dp1d.LongestPalindrome()
+	res := dp1d.RunNumDecodings()
 	fmt.Println(res)
 }
