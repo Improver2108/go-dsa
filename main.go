@@ -2,11 +2,15 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/improver2108/godsa/dp1d"
 )
 
 func main() {
-	res := dp1d.RunNumDecodings()
+	start := time.Now()
+	res := dp1d.RunCoinChange()
+	elapsed := time.Since(start)
 	fmt.Println(res)
+	fmt.Println("Time taken:", elapsed)
 }
