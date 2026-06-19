@@ -2,6 +2,7 @@ package dp1d
 
 import (
 	"fmt"
+	"math"
 )
 
 // You are given an integer array coins representing coins of different denominations (e.g. 1 dollar, 5 dollars, etc) and an integer amount representing a target amount of money.
@@ -16,6 +17,29 @@ import (
 
 // Output: 3
 // Explanation: 12 = 10 + 1 + 1. Note that we do not have to use every kind coin available.
+
+func coinChangeMemoization(coins []int, amount int) int {
+	var dfs func(amount int) int
+	memo := make(map[int]int)
+	memo[0] = 0
+	dfs = func(amount int) int {
+		if val, exists := memo[amount]; exists {
+			return val
+		}
+		res := math.MaxInt32
+		for _, amt := range coins {
+			if amount-amt >= 0 {
+				res = min(dfs(amount-amt)+1, res)
+			}
+		}
+		memo[amount] = res
+		return res
+	}
+	if dfs(amount) < math.MaxInt32 {
+		return dfs(amount)
+	}
+	return -1
+}
 
 func coinChange(coins []int, amount int) int {
 	dp := make([]int, amount+1)
