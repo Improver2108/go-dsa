@@ -14,7 +14,7 @@ package dp1d
 
 // Given a string s containing only digits, return the number of ways to decode it. You can assume that the answer fits in a 32-bit integer.
 
-func numDecodings(s string) int {
+func numDecodingsMemo(s string) int {
 	var dfs func(int) int
 	memo := make(map[int]int)
 	dfs = func(i int) int {
@@ -40,9 +40,27 @@ func numDecodings(s string) int {
 	return dfs(0)
 }
 
+func numDecodings(s string) int {
+	dp := make(map[int]int)
+	dp[len(s)] = 1
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == '0' {
+			dp[i] = 0
+		} else {
+			dp[i] = dp[i+1]
+			if i < len(s)-1 {
+				if (s[i] == '1') || (s[i] == '2' && s[i+1] <= '6') {
+					dp[i] += dp[i+2]
+				}
+			}
+		}
+	}
+	return dp[0]
+}
+
 //"2632"
 
 func RunNumDecodings() int {
-	s := "12"
-	return numDecodings(s)
+	s := "1012"
+	return numDecodingsMemo(s)
 }

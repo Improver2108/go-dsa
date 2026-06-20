@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp1d.RunCoinChange()
+	res := dp1d.RunNumDecodings()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
