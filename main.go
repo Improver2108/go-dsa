@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp1d.RunMaxProduct()
+	res := dp1d.RunWordBreak()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
