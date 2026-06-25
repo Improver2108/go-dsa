@@ -30,7 +30,7 @@ package dp1d
 // 1 <= wordDict[i].length <= 20
 // s and wordDict[i] consist of only lowercase English letters.
 
-func wordBreak(s string, wordDict []string) bool {
+func wordBreakMemo(s string, wordDict []string) bool {
 	set := make(map[string]struct{})
 	memo := make(map[int]bool)
 	for _, word := range wordDict {
@@ -57,8 +57,29 @@ func wordBreak(s string, wordDict []string) bool {
 	return helper(0)
 }
 
+func wordBreak(s string, wordDict []string) bool {
+	set := make(map[string]struct{})
+	for _, word := range wordDict {
+		set[word] = struct{}{}
+	}
+	n := len(s)
+	dp := make([]bool, n+1)
+	dp[n] = true
+	for i := n - 1; i >= 0; i-- {
+		for j := i; j < len(s); j++ {
+			if _, ok := set[s[i:j+1]]; ok {
+				if dp[j+1] {
+					dp[i] = true
+					break
+				}
+			}
+		}
+	}
+	return dp[0]
+}
+
 func RunWordBreak() bool {
-	s := "catsincars"
-	wordDict := []string{"cats", "cat", "sin", "in", "car"}
+	s := "abcd"
+	wordDict := []string{"a", "abc", "b", "cd"}
 	return wordBreak(s, wordDict)
 }
