@@ -1,5 +1,9 @@
 package dp1d
 
+import (
+	"slices"
+)
+
 // Given an integer array nums, return the length of the longest strictly increasing subsequence.
 
 // A subsequence is a sequence that can be derived from the given sequence by deleting some or no elements without changing the relative order of the remaining characters.
@@ -22,7 +26,7 @@ package dp1d
 // 1 <= nums.length <= 1000
 // -1000 <= nums[i] <= 1000
 
-func lengthOfLIS(nums []int) int {
+func lengthOfLISUnoptimized(nums []int) int {
 	stack := []int{nums[0]}
 	res := len(stack)
 	for i := 1; i < len(nums); i++ {
@@ -38,6 +42,21 @@ func lengthOfLIS(nums []int) int {
 		}
 	}
 	return res
+}
+
+func lengthOfLIS(nums []int) int {
+	stack := []int{nums[0]}
+	lis := len(stack)
+	for i := 1; i < len(nums); i++ {
+		if stack[len(stack)-1] < nums[i] {
+			stack = append(stack, nums[i])
+			lis++
+			continue
+		}
+		idx, _ := slices.BinarySearch(stack, nums[i])
+		stack[idx] = nums[i]
+	}
+	return lis
 }
 
 func RunLengthOfLIS() int {
