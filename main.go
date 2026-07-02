@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp1d.RunLengthOfLIS()
+	res := dp1d.RunCanPartition()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
