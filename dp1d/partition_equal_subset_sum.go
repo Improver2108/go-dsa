@@ -38,16 +38,16 @@ func canPartition(nums []int) bool {
 		if n == 0 {
 			return true
 		}
-		for j := i; j < len(nums)-1; j++ {
-			if n-nums[j] >= 0 {
-				if isPossible(j+1, n-nums[j]) {
-					memo[[2]int{i, n}] = true
-					return true
-				}
-			}
+		if i >= len(nums) || n < 0 {
+			return false
 		}
-		memo[[2]int{i, n}] = false
-		return false
+		found := isPossible(i+1, n) || isPossible(i+1, n-nums[i])
+		if found {
+			memo[[2]int{i, n}] = true
+		} else {
+			memo[[2]int{i, n}] = false
+		}
+		return found
 
 	}
 	return isPossible(0, sum/2)
