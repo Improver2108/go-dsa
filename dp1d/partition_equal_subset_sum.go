@@ -21,7 +21,7 @@ package dp1d
 // 1 <= nums.length <= 100
 // 1 <= nums[i] <= 50
 
-func canPartition(nums []int) bool {
+func canPartitionMemo(nums []int) bool {
 	sum := 0
 	for _, num := range nums {
 		sum += num
@@ -51,6 +51,33 @@ func canPartition(nums []int) bool {
 
 	}
 	return isPossible(0, sum/2)
+}
+func canPartition(nums []int) bool {
+	sum := 0
+	for _, num := range nums {
+		sum += num
+	}
+	if sum%2 != 0 {
+		return false
+	}
+	n, target := len(nums), sum/2
+	dp := make([][]bool, n+1)
+	for i := range dp {
+		dp[i] = make([]bool, target+1)
+	}
+	for i := range dp {
+		dp[i][0] = true
+	}
+	for i := 1; i < n+1; i++ {
+		for j := 1; j < target+1; j++ {
+			if nums[i-1] <= j {
+				dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]]
+				continue
+			}
+			dp[i][j] = dp[i-1][j]
+		}
+	}
+	return dp[n][target]
 }
 
 func RunCanPartition() bool {
