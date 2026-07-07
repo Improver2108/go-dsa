@@ -80,29 +80,29 @@ func canPartition2d(nums []int) bool {
 	return dp[n][target]
 }
 
-	func canPartition(nums []int) bool {
-		sum := 0
-		for _, num := range nums {
-			sum += num
-		}
-		if sum%2 != 0 {
-			return false
-		}
-		target := sum / 2
-		dp, nextDp := make([]bool, target+1), make([]bool, target+1)
-		dp[0] = true
-		for i := range len(nums) {
-			for j := 1; j <= target; j++ {
-				if nums[i] <= j {
-					nextDp[j] = dp[j] || dp[j-nums[i]]
-					continue
-				}
-				nextDp[j] = dp[j]
-			}
-			nextDp, dp = dp, nextDp
-		}
-		return dp[target]
+func canPartition(nums []int) bool {
+	sum := 0
+	for _, num := range nums {
+		sum += num
 	}
+	if sum%2 != 0 {
+		return false
+	}
+	target := sum / 2
+	dp, nextDp := make([]bool, target+1), make([]bool, target+1)
+	dp[0] = true
+	for i := range len(nums) {
+		for j := 1; j <= target; j++ {
+			if nums[i] <= j {
+				nextDp[j] = dp[j] || dp[j-nums[i]]
+				continue
+			}
+			nextDp[j] = dp[j]
+		}
+		nextDp, dp = dp, nextDp
+	}
+	return dp[target]
+}
 
 func RunCanPartition() bool {
 	nums := []int{1, 2, 3}
