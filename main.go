@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/improver2108/godsa/dp1d"
+	"github.com/improver2108/godsa/graph"
 )
 
 func main() {
 	start := time.Now()
-	res := dp1d.RunCanPartition()
+	res := graph.RunNumIslands()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
