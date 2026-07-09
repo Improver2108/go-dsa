@@ -57,26 +57,20 @@ func numIslandsDfs(grid [][]byte) int {
 func numIslands(grid [][]byte) int {
 	m, n := len(grid), len(grid[0])
 	count := 0
+	directions := [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
 	bfs := func(i, j int) {
 		queue := arrayqueue.New[[2]int]()
 		queue.Enqueue([2]int{i, j})
 		for !queue.Empty() {
 			index, _ := queue.Dequeue()
 			r, c := index[0], index[1]
-			if grid[r][c] == '1' {
-				if r-1 >= 0 {
-					queue.Enqueue([2]int{r - 1, c})
+			for _, dir := range directions {
+				nr, nc := r+dir[0], c+dir[1]
+				if nr < 0 || nr >= m || nc < 0 || nc >= n || grid[nr][nc] == '0' {
+					continue
 				}
-				if r+1 < m {
-					queue.Enqueue([2]int{r + 1, c})
-				}
-				if c-1 >= 0 {
-					queue.Enqueue([2]int{r, c - 1})
-				}
-				if c+1 < n {
-					queue.Enqueue([2]int{r, c + 1})
-				}
-				grid[r][c] = '0'
+				queue.Enqueue([2]int{nr, nc})
+				grid[nr][nc] = '0'
 			}
 		}
 	}
