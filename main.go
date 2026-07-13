@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := graph.RunMaxAreaOfIsland()
+	res := graph.RunIslandsAndTreasure()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
