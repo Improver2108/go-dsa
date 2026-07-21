@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := graph.RunSurroundedRegions()
+	res := graph.RunCourseSchedule()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
