@@ -1,6 +1,8 @@
 package graph
 
-func canFinish(numCourses int, prerequisites [][]int) bool {
+import "github.com/emirpasic/gods/v2/queues/arrayqueue"
+
+func canFinishDetectCycle(numCourses int, prerequisites [][]int) bool {
 	adjancencyList := make(map[int][]int)
 	for i := range numCourses {
 		adjancencyList[i] = []int{}
@@ -34,6 +36,38 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		}
 	}
 	return true
+}
+
+func canFinish(numCourses int, prerequisites [][]int) bool {
+	adjancencyList := make(map[int][]int)
+	indegree := make([]int, numCourses)
+
+	for _, preq := range prerequisites {
+		src, dest := preq[0], preq[1]
+		if _, ok := adjancencyList[src]; !ok {
+			adjancencyList[src] = []int{}
+		}
+		adjancencyList[src] = append(adjancencyList[src], dest)
+		indegree[dest]++
+	}
+	queue := arrayqueue.New[int]()
+	for i, ind := range indegree {
+		if ind == 0 {
+			queue.Enqueue(i)
+		}
+	}
+	finish := 0
+	for !queue.Empty() {
+		node, _ := queue.Dequeue()
+		finish++
+		for _, dest := range adjancencyList[node] {
+			indegree[dest]--
+			if indegree[dest] == 0 {
+				queue.Enqueue(dest)
+			}
+		}
+	}
+	return finish == numCourses
 }
 
 func RunCourseSchedule() bool {
