@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/improver2108/godsa/graph"
+	slidingwindow "github.com/improver2108/godsa/sliding_window"
 )
 
 func main() {
 	start := time.Now()
-	res := graph.RunCourseSchedule2()
+	res := slidingwindow.RunTotalFruit()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
