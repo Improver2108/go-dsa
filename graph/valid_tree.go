@@ -1,15 +1,12 @@
 package graph
 
-func validTree(n int, edges [][]int) bool {
+func validTreeRecursion(n int, edges [][]int) bool {
 	if n == 1 && len(edges) == 0 {
 		return true
 	}
 	finished := 0
 	visited := make(map[int]bool)
 	adjancencyList := make(map[int][]int)
-	for i := range n {
-		adjancencyList[i] = []int{}
-	}
 	for _, edge := range edges {
 		u, v := edge[0], edge[1]
 		adjancencyList[u] = append(adjancencyList[u], v)
@@ -34,10 +31,40 @@ func validTree(n int, edges [][]int) bool {
 		adjancencyList[currNode] = []int{}
 		return false
 	}
-	if isCycle(0, -1) {
-		return false
+
+	return !isCycle(0, -1) && finished == n
+}
+
+func validTree(n int, edges [][]int) bool {
+	if n == 1 && len(edges) == 0 {
+		return true
 	}
-	return finished == n
+	visited := make(map[int]bool)
+	adjancencyList := make(map[int][]int)
+	for _, edge := range edges {
+		u, v := edge[0], edge[1]
+		adjancencyList[u] = append(adjancencyList[u], v)
+		adjancencyList[v] = append(adjancencyList[v], u)
+	}
+	stack := [][]int{{0, -1}}
+	for len(stack) > 0 {
+		currNode, prevNode := stack[len(stack)-1][0], stack[len(stack)-1][1]
+		stack = stack[:len(stack)-1]
+		if visited[currNode] {
+			return false
+		}
+		visited[currNode] = true
+		for _, neigh := range adjancencyList[currNode] {
+			if neigh == prevNode {
+				continue
+			}
+			if visited[neigh] {
+				return false
+			}
+			stack = append(stack, []int{neigh, currNode})
+		}
+	}
+	return len(visited) == n
 }
 
 func RunValidTree() bool {
