@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := graph.RunValidTree()
+	res := graph.RunCountComponents()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
