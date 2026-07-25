@@ -4,7 +4,7 @@ import (
 	"slices"
 )
 
-func findRedundantConnection1(edges [][]int) []int {
+func findRedundantConnectionUnoptimized(edges [][]int) []int {
 	adj := make(map[int][]int)
 	visited := make(map[int]bool)
 	var dfs func(curr, prev int) bool
@@ -34,11 +34,10 @@ func findRedundantConnection1(edges [][]int) []int {
 			return []int{u, v}
 		}
 	}
-
 	return []int{}
 }
 
-func findRedundantConnection(edges [][]int) []int {
+func findRedundantConnectionDfs(edges [][]int) []int {
 	adj := make(map[int][]int)
 	visit := make(map[int]bool)
 	cycle := make(map[int]bool)
@@ -75,6 +74,43 @@ func findRedundantConnection(edges [][]int) []int {
 	for _, edge := range slices.Backward(edges) {
 		u, v := edge[0], edge[1]
 		if cycle[u] && cycle[v] {
+			return []int{u, v}
+		}
+	}
+	return []int{}
+}
+
+func findRedundantConnection(edges [][]int) []int {
+	n := len(edges)
+	indegree := make([]int, n+1)
+	adj := make(map[int][]int)
+	for _, edge := range edges {
+		u, v := edge[0], edge[1]
+		adj[u] = append(adj[u], v)
+		adj[v] = append(adj[v], u)
+		indegree[u]++
+		indegree[v]++
+	}
+	queue := []int{}
+	for node, ind := range indegree {
+		if ind == 1 {
+			queue = append(queue, node)
+		}
+	}
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		indegree[node]--
+		for _, neigh := range adj[node] {
+			indegree[neigh]--
+			if indegree[neigh] == 1 {
+				queue = append(queue, neigh)
+			}
+		}
+	}
+	for _, edge := range slices.Backward(edges) {
+		u, v := edge[0], edge[1]
+		if indegree[u] == 2 && indegree[v] == 2 {
 			return []int{u, v}
 		}
 	}
