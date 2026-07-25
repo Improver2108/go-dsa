@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := graph.RunFindRedundantConnection()
+	res := graph.RunLadderLength()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
