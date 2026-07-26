@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp2d.RunUniquePaths()
+	res := dp2d.RunLongestCommonSubsequence()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
