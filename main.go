@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/improver2108/godsa/graph"
+	"github.com/improver2108/godsa/dp2d"
 )
 
 func main() {
 	start := time.Now()
-	res := graph.RunLadderLength()
+	res := dp2d.RunUniquePaths()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
