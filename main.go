@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp2d.RunIsInterleave()
+	res := dp2d.RunLongestIncreasingPath()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
