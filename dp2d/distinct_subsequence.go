@@ -1,10 +1,5 @@
 package dp2d
 
-type state struct {
-	word string
-	i    int
-}
-
 func numDistinct(s string, t string) int {
 	m, n := len(s), len(t)
 	var dfs func(i, j int) int
