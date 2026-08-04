@@ -1,6 +1,6 @@
 package dp2d
 
-func numDistinct(s string, t string) int {
+func numDistinctMemo(s string, t string) int {
 	m, n := len(s), len(t)
 	var dfs func(i, j int) int
 	memo := make(map[[2]int]int)
@@ -22,6 +22,26 @@ func numDistinct(s string, t string) int {
 		return res
 	}
 	return dfs(0, 0)
+}
+
+func numDistinct(s string, t string) int {
+	m, n := len(s), len(t)
+	dp := make([][]int, m+1)
+	for i := range dp {
+		dp[i] = make([]int, n+1)
+	}
+	for i := range m + 1 {
+		dp[i][n] = 1
+	}
+	for i := m - 1; i >= 0; i-- {
+		for j := n - 1; j >= 0; j-- {
+			dp[i][j] = dp[i+1][j]
+			if s[i] == t[j] {
+				dp[i][j] += dp[i+1][j+1]
+			}
+		}
+	}
+	return dp[0][0]
 }
 
 func RunNumDistinct() int {

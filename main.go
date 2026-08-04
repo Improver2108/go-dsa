@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/improver2108/godsa/hashing"
+	"github.com/improver2108/godsa/dp2d"
 )
 
 func main() {
 	start := time.Now()
-	res := hashing.RunCountValidPrefixes()
+	res := dp2d.RunNumDistinct()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
