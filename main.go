@@ -9,7 +9,7 @@ import (
 
 func main() {
 	start := time.Now()
-	res := dp2d.RunMaxCoins()
+	res := dp2d.RunRegularExpression()
 	elapsed := time.Since(start)
 	fmt.Println(res)
 	fmt.Println("Time taken:", elapsed)
